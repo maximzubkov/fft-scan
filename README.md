@@ -76,7 +76,7 @@ So we simplified the task to the calculation of $\overline{Z}$
 
 ##### 3.3 FFT
 
-We know that $Z_{i,j}$ = A_i * A_{i-1} * ... A_{j}, let's assume for simplicity that $A_{i, t} > 0 \ \forall i, t$, we will fix this trick later. Then $Z_{i, j} = exp(\sum\limits_{k=j}^i \ln(A_k))$. First, let's denote the upper triangular matrix as $U_k$ :
+We know that $Z_{i,j} = A_i * A_{i-1} * ... A_{j}$, let's assume for simplicity that $A_{i, t} > 0 \ \forall i, t$, we will fix this trick later. Then $Z_{i, j} = exp(\sum\limits_{k=j}^i \ln(A_k))$. First, let's denote the upper triangular matrix as $U_k$ :
 
 $$U_k = \begin{bmatrix}
 1 & 1 & 1 & ...& 1 & 1 \\
@@ -212,7 +212,7 @@ $$
 0 & 0 & 0 & 0 & x_0 & x_1 & x_2 \\
 1 & 0 & 0 & 0 & x_3 & x_4 & x_5 \\
 1 & 1 & 0 & 0 & x_6 & x_7 & x_8 \\
-0 & 0 & 0 & 0 & x_9 & x_10 & x_11 \\
+0 & 0 & 0 & 0 & x_9 & x_{10} & x_{11} \\
 \end{bmatrix} \cdot \begin{bmatrix}
 a_0 \\
 a_1 \\
@@ -246,7 +246,7 @@ a_3 \\
 \end{bmatrix}\right) [:4, :])
 $$
 
-Note that line 3 (counting from 0) of the circulant matrix is different from line 3 of the initial matrix. This can be fixed, if we calculate $Z_2$ using circulant and after then multiply the output by $L_T$ to fix this inconsistency.
+Note that line 3 (counting from 0) of the circulant matrix is different from line 3 of the initial matrix. This can be fixed, if we calculate $Z_2$ using circulant and then multiply the output by $L_T$ to fix this inconsistency.
 
 ##### 3.7 Negative values of matrix $A$
 
