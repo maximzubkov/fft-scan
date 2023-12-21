@@ -253,7 +253,7 @@ Note that line 3 (counting from 0) of the circulant matrix is different from lin
 
 ##### 3.7 Negative values of matrix $A$
 
-Since FFT can be performed over complex numbers it's not a problem, we just need to compute `torch.log` in complex space. Note that $\log(-x)$ can be computed using $x \cdot e^{i \cdot \phi} = x \cdot \cos(\phi) + x \cdot i \sin(\phi)= -x$, so $\log(-x) = \log\(x) + i \pi$,
+Since FFT can be performed over complex numbers it's not a problem, we just need to compute `torch.log` in complex space. Note that $\log(-|x|)$ can be computed using $|x| \cdot e^{i \cdot \phi} = x \cdot \cos(\phi) + x \cdot i \sin(\phi)= -|x|$, so $\log(-|x|) = \log\(|x|) + i \pi$,
 
 ### 4. Code
 
