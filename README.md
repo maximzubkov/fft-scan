@@ -251,6 +251,10 @@ $$
 
 Note that line 3 (counting from 0) of the ciculant matrix is different from line 3 of initial matrix. This can be fixed, it we calculate $Z_2$ using ciculant and after than multiply output by $L_T$ to fix this inconsistency.
 
+##### 3.7 Negative values of matrix $A$
+
+Since FFT can be performed over complex numbers its not a problem, we just need to comput `torch.log` in complex space. Note that $log(-x)$ can be computed using $x \cdot e^{i \cdot \phi} = x \cdot \cos(\phi) + x \cdot i \sin(\phi)= -x$, so $\log(x) = log\(x) + i \pi$,
+
 ### 4. Code
 
 To run the code `pytorch` is required.
