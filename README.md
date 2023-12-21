@@ -224,7 +224,12 @@ a_3 \\
 0 \\
 0 \\
 0 \\
-\end{bmatrix} = 
+\end{bmatrix}$$
+
+Now let's consider the following product:
+
+$$
+\left(
 \begin{bmatrix}
 0 & 0 & 0 & 0 & 0 & 1 & 1 \\
 1 & 0 & 0 & 0 & 0 & 0 & 1 \\
@@ -241,9 +246,10 @@ a_3 \\
 0 \\
 0 \\
 0 \\
-\end{bmatrix}\right) [:4, :]
+\end{bmatrix}\right) [:4, :])
 $$
 
+Note that line 3 (counting from 0) of the ciculant matrix is different from line 3 of initial matrix. This can be fixed, it we calculate $Z_2$ using ciculant and after than multiply output by $L_T$ to fix this inconsistency.
 
 ### 4. Code
 
