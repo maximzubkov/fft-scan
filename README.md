@@ -1,10 +1,7 @@
-# fft-scan
-
 ### 1. Introduction
-This repo is inspired by a series of recent posts by François Fleuret on [X](https://twitter.com/francoisfleuret/status/1735907836238954589). The goal is to implement PScan algorithms in a simple yet efficient way.
-
+This repo is inspired by a series of recent posts by François Fleuret on [X](https://twitter.com/francoisfleuret/status/1735907836238954589). The goal is to implement the PScan algorithm in a simple yet efficient way
 ### 2. Problem
-Let's consider tensor $X \in \mathbb{R}^{N \times T \times D}$, and matrix $A \in \mathbb{R}^{N \times T}$. The goal is to compute tensor $Y \in \mathbb{R}^{N \times T \times D}$. Let's denote:
+Let's consider tensor $X \in \mathbb{R}^{N \times T \times D}$, and matrix $A \in \mathbb{R}^{N \times T}$. Let's denote:
  $$X[:, t, :] \text{ as } X_t$$  $$A[:, t] \text{ as } A_t$$  $$Y[:, t, :] \text{ as } Y_t$$
 
 And let $$Y_0 = X_0$$
@@ -12,7 +9,7 @@ And let $Y_t$ can be calculated as follows:
 
 $$Y_t = A_{t - 1} * Y_{t-1} + X_t $$
 
-Where $A_{t - 1} * Y_{t-1}$ satnds for a component-wise product of $A_t$ on the tensor $Y_t$. The goal is to calculate $Y_t$ and ensure that 
+Where $A_{t - 1} * Y_{t-1}$ satnds for a component-wise product of $A_t$ on the tensor $Y_t$. The goal is to calculate $Y \in \mathbb{R}^{N \times T \times D}$.
 
 ### 3. Solution
 
