@@ -373,8 +373,10 @@ $$
 The final step is to use the following trick. For any vector $a$ and matrix $B$: $a^T * B = \text{diag}(a) \cdot B$, and $B * a = B \cdot \text{diag}(a)$, so we get a very elegant formula for $Y$:
 
 $$
-Y = X + \text{diag}(e^{V}) \cdot L_T \cdot \text{diag}(e^{W}) \cdot X = X + e^{V}^T * (L_T \cdot (e^{W} * X))
+Y = X + \text{diag}(e^{V}) \cdot L_T \cdot \text{diag}(e^{W}) \cdot X = X + (e^{V})^T * (L_T \cdot (e^{W} * X))
 $$
+
+$L_T$, as well as $U_T$, can be multiplied by vector efficiently, requiring only $O(T \log(T))$ operations to perform this opperation. So we need $O(T \log(T))$ to calcualte $V$ and $W$, then $e^{W} * X$ requires $O(T)$ operations; $L_T \cdot (...)$ brings another $O(T \log(T))$ and finally, $X + (e^{V})^T * (...)$ requires another $O(T)$, so the total compelxity of this approach is $O(T \log(T))$
 
 ### 4. Code
 
