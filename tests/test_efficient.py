@@ -4,7 +4,7 @@ from src.fft_efficeint import pscan_fft_efficient
 
 N, T, D = 20, 128, 378
 
-def test_pscan_fft_simple(A, X):
+def test_pscan_fft_efficient():
     A = torch.randn(N, T).requires_grad_() / 10 + 1
     X = torch.randn(N, T, D).requires_grad_() / 1000
 
