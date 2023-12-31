@@ -25,7 +25,7 @@ def U_at_A(A):
     N, T = A.shape
     device = A.device
     A_ = A.transpose(0, 1)
-    A_ = torch.cat([A_, torch.zeros(T - 1, N)], dim=0)
+    A_ = torch.cat([A_, torch.zeros(T - 1, N, device=device)], dim=0)
 
     L_no_diag = torch.where(
         (torch.arange(2 * T - 1, device=device) >= 1) & (torch.arange(2 * T - 1, device=device) <= T - 1),
@@ -46,6 +46,7 @@ def U_at_A(A):
 
 def pscan_fft_efficient(A, X):
     N, T, D = X.shape
+    device = X.device
 
     # A_log \in [N x T]
     A_log = torch.log(A.to(dtype=torch.cfloat))
@@ -66,6 +67,6 @@ def pscan_fft_efficient(A, X):
 
     # After exp we no longer have complex components
     Y_ = Y_.real
-    Y_ = torch.cat([torch.zeros(N, 1, D), Y_[:, :-1, :]], dim=1) 
+    Y_ = torch.cat([torch.zeros(N, 1, D, device=device), Y_[:, :-1, :]], dim=1) 
     Y = Y_ + X
     return Y    

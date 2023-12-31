@@ -76,6 +76,6 @@ def pscan_fft_simple(A, X):
     Z = Z.real
     # Y \in [N x T x D] = bmm([N x T x T], [N x T x D])
     Y_ = torch.bmm(Z, X)
-    Y_ = torch.cat([torch.zeros(N, 1, D), Y_[:, :-1, :]], dim=1) 
+    Y_ = torch.cat([torch.zeros(N, 1, D, device=device), Y_[:, :-1, :]], dim=1) 
     Y = Y_ + X
     return Y    
