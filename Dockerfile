@@ -26,6 +26,8 @@ RUN python -m pip install --upgrade pip
 WORKDIR /pscan
 
 RUN pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+COPY ./requirements.txt requirements.txt
+RUN pip install -r requirements.txt
 
 COPY . .
 
