@@ -1,6 +1,6 @@
 import torch
 
-def pscan_fft(A, X):
+def pscan_fft_simple(A, X):
     N, T, D = X.shape
 
     # A_log \in [N x T]
