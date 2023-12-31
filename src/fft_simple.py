@@ -2,13 +2,14 @@ import torch
 
 def pscan_fft_simple(A, X):
     N, T, D = X.shape
+    device = X.device
 
     # A_log \in [N x T]
     A_log = torch.log(A.to(dtype=torch.cfloat))
     # A_log_T \in [T x N]
     A_log_T = A_log.T
     # A_log_T \in [(2T - 1) x N]
-    A_log_T = torch.cat([A_log_T, torch.zeros(T - 1, N)], dim=0)
+    A_log_T = torch.cat([A_log_T, torch.zeros(T - 1, N, device=device)], dim=0)
 
     # For T = 3
     # mask1 = [1, 1, 1, 0, 0]
@@ -20,9 +21,9 @@ def pscan_fft_simple(A, X):
     #    [0, 0, 1, 1, 1],
     # ]
     mask1 = torch.where(
-        (torch.arange(2 * T - 1) <= T - 1),
+        (torch.arange(2 * T - 1, device=device) <= T - 1),
         1, 
-        0
+        0,
     )
     mask1 = mask1.unsqueeze(1)
     Z1_log_rev = torch.fft.ifft(
@@ -51,7 +52,7 @@ def pscan_fft_simple(A, X):
     # ]
     mask2 = torch.where(
         torch.cat([
-            ((torch.arange(2 * T - 1) >= 1) & (torch.arange(2 * T - 1) <= t)).unsqueeze(0) for t in range(T)
+            ((torch.arange(2 * T - 1, device=device) >= 1) & (torch.arange(2 * T - 1, device=device) <= t)).unsqueeze(0) for t in range(T)
         ], dim=0),
         1, 
         0
