@@ -1,7 +1,6 @@
 import torch
 
 
-@torch.compile
 def pscan_cumsum(A, X):
     N, T, D = X.shape
     device = X.device

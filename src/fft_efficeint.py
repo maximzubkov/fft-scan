@@ -1,7 +1,6 @@
 import torch
 
 
-@torch.compile
 def L_at_X(X):
     N, T, D = X.shape
     device = X.device
@@ -23,7 +22,6 @@ def L_at_X(X):
     return output
 
 
-@torch.compile
 def U_at_A(A):
     N, T = A.shape
     device = A.device
@@ -48,7 +46,6 @@ def U_at_A(A):
     return output
 
 
-@torch.compile
 def pscan_fft_efficient(A, X):
     N, T, D = X.shape
     device = X.device
