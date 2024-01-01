@@ -1,6 +1,6 @@
 import torch
 import torch.utils.benchmark as benchmark
-from torch.profiler import profile, record_function, ProfilerActivity
+import statistics
 
 from collections import defaultdict
 import json
@@ -39,6 +39,17 @@ approach2fn = {
     'fft_simple': pscan_fft_simple,
     'fft_efficient': pscan_fft_efficient,
 }
+
+def basic_stats(data: list):
+    mean_value = statistics.mean(data)
+    median_value = statistics.median(data)
+    std_deviation = statistics.stdev(data)
+
+    # Other basic statistics
+    min_value = min(data)
+    max_value = max(data)
+
+    return f"{mean_value} ± {std_deviation}, [{min_value}, {median_value}, {max_value}]"
 
 
 if __name__ == "__main__":
@@ -86,8 +97,8 @@ if __name__ == "__main__":
         approach2timing_forward[approach][T] = timing_forward if timing_forward else None
         approach2timing_backward[approach][T] = timing_backward if timing_backward else None
 
-        print(json.dumps({k: dict(v) for k, v in approach2timing_forward.items()}, indent=2))
-        print(json.dumps({k: dict(v) for k, v in approach2timing_backward.items()}, indent=2))
+        print(json.dumps({k: {t: basic_stats(data) for t, data in dict(v).items()} for k, v in approach2timing_forward.items()}, indent=2))
+        print(json.dumps({k: {t: basic_stats(data) for t, data in dict(v).items()} for k, v in approach2timing_backward.items()}, indent=2))
 
     approach2timing_forward = {k: dict(v) for k, v in approach2timing_forward.items()}
     approach2timing_backward = {k: dict(v) for k, v in approach2timing_backward.items()}
