@@ -4,7 +4,7 @@ from src.cumsum import pscan_cumsum
 
 N, T, D = 20, 128, 378
 
-def test_pscan_fft_efficient():
+def test_pscan_cumsum():
     A = torch.randn(N, T).requires_grad_() / 10 + 1
     X = torch.randn(N, T, D).requires_grad_() / 1000
 
