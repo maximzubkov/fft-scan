@@ -1,7 +1,7 @@
 import torch
 import torch.utils.benchmark as benchmark
 
-from collections import defautltdict
+from collections import defaultdict
 import json
 from tqdm import tqdm
 
@@ -41,8 +41,8 @@ approach2fn = {
 
 
 if __name__ == "__main__":
-    approach2timing_forward = defautltdict(dict)
-    approach2timing_backward = defautltdict(dict)
+    approach2timing_forward = defaultdict(dict)
+    approach2timing_backward = defaultdict(dict)
 
     Ts = [128, 256, 512, 1024, 2048, 4096, 8192, 12288]
     N, D = 16, 1024
