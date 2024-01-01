@@ -49,7 +49,7 @@ if __name__ == "__main__":
     N, D = 2, 2048
     for T in tqdm(Ts):
         timing_forward, timing_backward = [], []
-        for _ in range(10):
+        for _ in range(5):
             globals_ = {
                 'A': torch.randn(N, T, device='cuda').requires_grad_() / 10 + 1,
                 'X': torch.randn(N, T, D, device='cuda').requires_grad_() / 10,
@@ -69,7 +69,7 @@ if __name__ == "__main__":
                     globals=globals_
                 )
                 try:
-                    timing_forward += t_forward.timeit(50).times
+                    timing_forward += t_forward.timeit(500).times
                 except:
                     pass
 
@@ -79,7 +79,7 @@ if __name__ == "__main__":
                     globals=globals_
                 )
                 try:
-                    timing_backward += t_backward.timeit(50).times
+                    timing_backward += t_backward.timeit(500).times
                 except:
                     pass
 
