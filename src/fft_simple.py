@@ -1,5 +1,6 @@
 import torch
 
+
 def pscan_fft_simple(A, X):
     N, T, D = X.shape
     device = X.device

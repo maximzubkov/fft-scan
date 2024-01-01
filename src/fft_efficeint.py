@@ -1,16 +1,17 @@
 import torch
 
+
+@torch.compile
 def L_at_X(X):
     N, T, D = X.shape
     device = X.device
     X_ = X.transpose(0, 1)
     X_ = torch.cat([X_, torch.zeros(T - 1, N, D, device=device)], dim=0)
 
-    L = torch.where(
-        (torch.arange(2 * T - 1, device=device) <= T - 1),
-        1, 
-        0
-    )
+    L = torch.cat([
+        torch.ones(T, device=device),
+        torch.zeros(T - 1, device=device)
+    ], dim=0)
     L = L.unsqueeze(1).unsqueeze(2)
 
     output = torch.fft.ifft(
@@ -21,17 +22,19 @@ def L_at_X(X):
     output = output[:T, :, :].transpose(0, 1)
     return output
 
+
+@torch.compile
 def U_at_A(A):
     N, T = A.shape
     device = A.device
     A_ = A.transpose(0, 1)
     A_ = torch.cat([A_, torch.zeros(T - 1, N, device=device)], dim=0)
 
-    L_no_diag = torch.where(
-        (torch.arange(2 * T - 1, device=device) >= 1) & (torch.arange(2 * T - 1, device=device) <= T - 1),
-        1, 
-        0
-    )
+    L_no_diag = torch.cat([
+        torch.zeros(1, device=device),
+        torch.ones(T - 1, device=device),
+        torch.zeros(T - 1, device=device),
+    ], dim=0)
     L_no_diag = L_no_diag.unsqueeze(1)
     
     L_no_diag_at_A = torch.fft.ifft(
@@ -44,6 +47,8 @@ def U_at_A(A):
     output = output[:T, :].transpose(0, 1)
     return output
 
+
+@torch.compile
 def pscan_fft_efficient(A, X):
     N, T, D = X.shape
     device = X.device
