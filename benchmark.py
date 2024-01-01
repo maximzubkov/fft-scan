@@ -58,8 +58,8 @@ if __name__ == "__main__":
     approach2timing_forward = defaultdict(dict)
     approach2timing_backward = defaultdict(dict)
 
-    Ts = [128, 256, 512, 1024, 2048, 4096, 8192]
-    N, D = 2, 2048
+    Ts = [128, 256, 512, 1024, 2048, 4096]
+    N, D = 1, 2048
     for T in tqdm(Ts):
         timing_forward, timing_backward = defaultdict(list), defaultdict(list)
         for _ in range(5):
@@ -82,7 +82,7 @@ if __name__ == "__main__":
                     globals=globals_
                 )
                 try:
-                    timing_forward[approach] += t_forward.timeit(500).times
+                    timing_forward[approach] += t_forward.timeit(200).times
                 except:
                     pass
 
@@ -92,7 +92,7 @@ if __name__ == "__main__":
                     globals=globals_
                 )
                 try:
-                    timing_backward[approach] += t_backward.timeit(500).times
+                    timing_backward[approach] += t_backward.timeit(200).times
                 except:
                     pass
         for approach in approach2setup:
