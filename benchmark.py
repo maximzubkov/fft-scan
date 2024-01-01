@@ -59,7 +59,7 @@ if __name__ == "__main__":
     Ts = [128, 256, 512, 1024, 2048, 4096, 8192]
     N, D = 2, 2048
     for T in tqdm(Ts):
-        timing_forward, timing_backward = [], []
+        timing_forward, timing_backward = defaultdict(list), defaultdict(list)
         for _ in range(5):
             globals_ = {
                 'A': torch.randn(N, T, device='cuda').requires_grad_() / 10 + 1,
@@ -80,7 +80,7 @@ if __name__ == "__main__":
                     globals=globals_
                 )
                 try:
-                    timing_forward += t_forward.timeit(500).times
+                    timing_forward[approach] += t_forward.timeit(500).times
                 except:
                     pass
 
@@ -90,12 +90,12 @@ if __name__ == "__main__":
                     globals=globals_
                 )
                 try:
-                    timing_backward += t_backward.timeit(500).times
+                    timing_backward[approach] += t_backward.timeit(500).times
                 except:
                     pass
-
-        approach2timing_forward[approach][T] = timing_forward if timing_forward else None
-        approach2timing_backward[approach][T] = timing_backward if timing_backward else None
+        for approach in approach2setup:
+            approach2timing_forward[approach][T] = timing_forward[approach] if timing_forward[approach] else None
+            approach2timing_backward[approach][T] = timing_backward[approach] if timing_backward[approach] else None
 
         print(json.dumps({k: {t: basic_stats(data) for t, data in dict(v).items()} for k, v in approach2timing_forward.items()}, indent=2))
         print(json.dumps({k: {t: basic_stats(data) for t, data in dict(v).items()} for k, v in approach2timing_backward.items()}, indent=2))
