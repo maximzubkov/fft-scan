@@ -41,6 +41,8 @@ approach2fn = {
 }
 
 def basic_stats(data: list):
+    if data is None:
+        return None
     mean_value = round(statistics.mean(data), 6)
     median_value = round(statistics.median(data), 6)
     std_deviation = round(statistics.stdev(data), 6)
