@@ -41,15 +41,15 @@ approach2fn = {
 }
 
 def basic_stats(data: list):
-    mean_value = statistics.mean(data)
-    median_value = statistics.median(data)
-    std_deviation = statistics.stdev(data)
+    mean_value = round(statistics.mean(data), 6)
+    median_value = round(statistics.median(data), 6)
+    std_deviation = round(statistics.stdev(data), 6)
 
     # Other basic statistics
-    min_value = min(data)
-    max_value = max(data)
+    min_value = round(min(data), 6)
+    max_value = round(max(data), 6)
 
-    return f"{mean_value} ± {std_deviation}, [{min_value}, {median_value}, {max_value}]"
+    return f"{mean_value} +/- {std_deviation}, [{min_value}, {median_value}, {max_value}]"
 
 
 if __name__ == "__main__":
