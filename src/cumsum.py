@@ -24,6 +24,6 @@ def pscan_cumsum(A, X):
     Y_ = e_V * torch.cumsum(e_W * X, dim=1) * (torch.exp(V_max + W_max))
 
     # After exp we no longer have complex components
-    Y_ = torch.cat([torch.zeros(N, 1, D, device=device), Y_[:, :-1, :]], dim=1) 
+    Y_ = torch.cat([torch.zeros(N, 1, D, device=device), Y_[:, :-1, :]], dim=1)
     Y = Y_ + X
-    return Y    
+    return Y

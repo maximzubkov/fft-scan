@@ -5,7 +5,9 @@
 
 # Written by Francois Fleuret <francois@fleuret.org>
 
-import torch, math
+import math
+
+import torch
 
 ######################################################################
 

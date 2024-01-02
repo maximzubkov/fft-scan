@@ -1,4 +1,5 @@
-import torch 
+import torch
+
 
 def pscan_naive(A, X):
     N, T, D = X.shape
@@ -7,5 +8,5 @@ def pscan_naive(A, X):
     Y[:, 0, :] = X[:, 0, :]
     for k in range(1, X.shape[1]):
         Y[:, k, :] = A[:, k - 1].unsqueeze(1) * Y[:, k - 1, :] + X[:, k, :]
-    
+
     return Y
