@@ -28,7 +28,6 @@ WORKDIR /pscan
 RUN pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
 COPY ./requirements.txt requirements.txt
 RUN pip install -r requirements.txt
-RUN pip install torch-discounted-cumsum --no-dependencies --no-cache-dir --no-build-isolation --verbose
 
 COPY . .
 
