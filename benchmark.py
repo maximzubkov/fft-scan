@@ -72,8 +72,8 @@ if __name__ == "__main__":
     approach2timing_forward = defaultdict(dict)
     approach2timing_backward = defaultdict(dict)
 
-    Ts = [512, 1024, 2048, 3072, 4096, 5120, 6144]
-    N, D = 2, 1024
+    Ts = [512, 1024, 2048, 4096, 8192, 16384, 24576, 32768, 40960]
+    N, D = 4, 4096
     for T in tqdm(Ts):
         timing_forward, timing_backward = defaultdict(list), defaultdict(list)
         A, X = torch.randn(N, T, device="cuda"), torch.randn(N, T, D, device="cuda")

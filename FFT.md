@@ -51,4 +51,4 @@ And as we can see on the left side we have a Circulant matrix based on vector `[
 
 ##### U_T with FFT
 
-Note that $(U_T)^T = L_T$. Moreover `U_T @ A` can be computed as `A.sum() - L_T @ A + A` with proper reshaping
+Note that $(U_T)^T = L_T$. Moreover `U_T @ A` can be computed as `A.sum() - L_T @ A + A` with proper reshaping. So the prodcut `U_T @ A` can be computed with FFT efficiently as well
