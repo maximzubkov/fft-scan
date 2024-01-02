@@ -13,7 +13,6 @@ from src.fft_efficeint import pscan_fft_efficient
 
 def pscan_forward(fn, A, X, Y_init=None):
     Y = fn(A, X) if Y_init is None else fn(A, X, Y_init)
-    Y.zero_grad()
 
 
 stmt_forward = "pscan_forward(fn, A, X, Y_init)"
@@ -57,13 +56,13 @@ def basic_stats(data: list):
 
 def init_globals(approach: str, A: torch.Tensor, X: torch.Tensor, Y_init: torch.Tensor):
     globals_ = {
-        "A": A.copy().requires_grad_(),
-        "X": X.copy().requires_grad_(),
+        "A": A.clone().requires_grad_(),
+        "X": X.clone().requires_grad_(),
         "pscan_forward": pscan_forward,
         "pscan_backward": pscan_backward,
     }
     if approach == "ff":
-        globals_["Y_init"] = Y_init.copy().requires_grad_()
+        globals_["Y_init"] = Y_init.clone().requires_grad_()
     else:
         globals_["Y_init"] = None
     globals_["fn"] = approach2fn[approach]
@@ -88,21 +87,21 @@ if __name__ == "__main__":
                 "Y_init.grad.zero_() if (Y_init is not None) and (Y_init.grad is not None) else None"
             ]) 
 
-            for measurement in range(20):
+            for measurement in tqdm(range(50)):
                 t_forward = benchmark.Timer(
                     stmt=stmt_forward, setup=setup, globals=globals_
                 )
                 try:
-                    timing_forward[approach] += t_forward.timeit(1000).times
+                    timing_forward[approach] += t_forward.timeit(200).times
                 except:
                     pass
             
-            for measurement in range(20):
+            for measurement in tqdm(range(50)):
                 t_backward = benchmark.Timer(
                     stmt=stmt_backward, setup=setup, globals=globals_
                 )
                 try:
-                    timing_backward[approach] += t_backward.timeit(1000).times
+                    timing_backward[approach] += t_backward.timeit(200).times
                 except:
                     pass
         for approach in approach2setup:
