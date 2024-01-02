@@ -258,11 +258,15 @@ Turns out we can extend matrix $U_T$ and $L_T$ to make them [Circulant](https://
 
 ### 4. Code
 
-To run the code `pytorch` is required.
+To run the code `pytorch` and `tqdm` are required. The recommended way is to use docker, the image can be built running:
+```
+docker build -it scan . 
+```
+
 
 ### 5. Benchmarking
 
-Here we compare `cusum` implementation with the one proposed [by François Fleuret](https://fleuret.org/cgi-bin/gitweb/gitweb.cgi). Benchmarking conducted with NVIDIA V100, see [Dockerfile](https://github.com/maximzubkov/fft-scan/blob/main/Dockerfile) for the environment details.
+Here we compare `cusum` implementation with the one proposed [by François Fleuret](https://fleuret.org/cgi-bin/gitweb/gitweb.cgi). Benchmarking conducted with NVIDIA V100, see [Dockerfile](https://github.com/maximzubkov/fft-scan/blob/main/Dockerfile) for the environment details, and [benchmark.py](https://github.com/maximzubkov/fft-scan/blob/main/benchmark.py). 
 
 ![f](./notebooks/f.png)
 ![fb](./notebooks/fb.png)
